@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Simple Image Slider</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background: #f4f4f4; 
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        .slider-container { 
+            position: relative; 
+            width: 80%; 
+            max-width: 800px; 
+            height: 80vh;
+            overflow: hidden; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .slider { 
+            display: flex; 
+            transition: transform 0.5s ease-in-out; 
+            height: 100%;
+        }
+        
+        .slide { 
+            min-width: 100%; 
+            position: relative;
+            text-align: center;
+            height: 100%;
+        }
+        .slide img { 
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px; 
+        }
+        .caption {
+             position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 45px;
+            font-weight: bold;
+        }
+        
+        .prev, .next { 
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            background: rgba(0, 0, 0, 0.5); 
+            color: white; 
+            border: none; 
+            padding: 10px 15px; 
+            cursor: pointer; 
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider">
+             <div class="slide">
+                <img src="https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Slide 1">
+                <div class="caption">VEGETABLES</div>
+            </div>
+            <div class="slide">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoXwM32xmPN0zX5zJJBmiHtITneFGpuZi4Ww&s" alt="Slide 2">
+                <div class="caption">FRUITS</div>
+            </div>
+            <div class="slide">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0grQb_L7AUNvtvySD6RMBm59tbdQUSjLzwg&s" alt="Slide 3">
+                <div class="caption">NUTS</div>
+            </div>
+        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+    </div>
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slider = document.querySelector('.slider');
+        const captions = document.querySelectorAll('.caption');
+        const totalSlides = slides.length;
+        
+        document.querySelector('.next').addEventListener('click', () => moveSlide(1));
+        document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
+        
+        function moveSlide(step) {
+            currentIndex = (currentIndex + step + totalSlides) % totalSlides;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        
+        setInterval(() => moveSlide(1), 3000);
+    </script>
+</body>
+</html>
